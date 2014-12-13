@@ -1,0 +1,90 @@
+<h1>Close if / Open If</h1>
+
+<p>You've seen how a modal is opened/closed in the {{#link-to 'simple'}}simple page{{/link-to}} by the <i>\{{em-modal-toggler}}</i> tag, But sometimes it makes sense to programatically open or close a modal, for this, bind the <i>open-if</i> property to a controller property, once the property value is set to <i>true</i> the modal will be opened automatically.</p>
+
+<h2><i>open-if</i> property</h2>
+
+<h3>Demo</h3>
+
+{{#em-modal configName="bs" open-if=openModal}}
+    {{#em-modal-title}}
+        {{#em-modal-toggler class="close"}}<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>{{/em-modal-toggler}}
+        <h4 class="modal-title">Modal!</h4>
+    {{/em-modal-title}}
+    {{#em-modal-body}}
+        I got opened by a controller.
+    {{/em-modal-body}}
+{{/em-modal}}
+
+<button {{action 'raise'}} class="btn">Click Me</button>
+
+<h3>Markup</h3>
+
+<div class="well line-example"><pre><code class="handlebars">\{{#em-modal configName="bs" open-if=openModal}}
+    \{{#em-modal-title}}
+        \{{#em-modal-toggler class="close"}}&lt;span aria-hidden="true"&gt;&times;&lt;/span&gt;&lt;span class="sr-only"&gt;Close&lt;/span&gt;\{{/em-modal-toggler}}
+        &lt;h4 class="modal-title"&gt;Modal!&lt;/h4&gt;
+    \{{/em-modal-title}}
+    \{{#em-modal-body}}
+        I got opened by a controller.
+    \{{/em-modal-body}}
+    \{{/em-modal}}
+</code></pre></div>
+
+<h3>Controller</h3>
+
+<div class="well line-example"><pre><code class="coffeescript">Ember.Controller.extend
+    openModal: false
+    actions:
+        raise: ->
+            @set 'openModal', true
+</code></pre></div>
+
+<h2><i>close-if</i> property</h2>
+
+<h3>Demo</h3>
+
+{{#em-modal configName="bs" id="modal2" close-if=closeModal}}
+    {{#em-modal-title}}
+        {{#em-modal-toggler class="close"}}<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>{{/em-modal-toggler}}
+        <h4 class="modal-title">Modal!</h4>
+    {{/em-modal-title}}
+    {{#em-modal-body}}
+        <div>{{input type='checkbox' checked=checkMe}} Check me otherwise you cant save!</div>
+        <div style="color: red;">{{message}}</div>
+    {{/em-modal-body}}    
+    {{#em-modal-footer}}
+        <button type="button" class="btn btn-primary" {{action "save"}}>Save</button>
+    {{/em-modal-footer}}
+{{/em-modal}}
+
+{{#em-modal-toggler modal-id="modal2" class="btn btn-primary"}}Click me!{{/em-modal-toggler}}
+
+<h3>Markup</h3>
+
+<div class="well line-example"><pre><code class="handlebars">\{{#em-modal configName="bs" id="modal2" close-if=closeModal}}
+    \{{#em-modal-title}}
+        \{{#em-modal-toggler class="close"}}&lt;span aria-hidden="true"&gt;&times;&lt;/span&gt;&lt;span class="sr-only"&gt;Close&lt;/span&gt;\{{/em-modal-toggler}}
+        &lt;h4 class="modal-title"&gt;Modal!&lt;/h4&gt; 
+    \{{/em-modal-title}}
+    \{{#em-modal-body}}
+        &lt;div>\{{input type='checkbox' checked=checkMe}} Check me otherwise you cant save!&lt;/div&gt;
+        &lt;div style="color: red;"&gt;{{message}}&lt;/div&gt;
+    \{{/em-modal-body}}    
+    \{{#em-modal-footer}}
+        &lt;button type="button" class="btn btn-primary" {{action "save"}}>Save&lt;/button&gt;
+    \{{/em-modal-footer}}
+\{{/em-modal}}
+
+\{{#em-modal-toggler modal-id="modal2" class="btn btn-primary"}}Click me!\{{/em-modal-toggler}}
+</code></pre></div>
+
+<h3>Controller</h3>
+
+<div class="well line-example"><pre><code class="coffeescript">Ember.Controller.extend
+    closeModal: false
+    message: undefined
+    actions:
+        save: ->
+            if @get('checkMe') then @set('closeModal', true) else @set('message', 'Check the checkbox first!')
+</code></pre></div>

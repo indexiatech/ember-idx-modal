@@ -1,0 +1,111 @@
+<h1>Modal Form</h1>
+
+<p>
+It is a common need to have a form rendered within a modal, for this, use the <i>\{{em-modal-body-form}}</i> tag,
+This tag renders a form tag within the body of the form and taking a special care of form submission, the benefits are:
+</p>
+
+<p>
+<ul>
+    <li>When the form is submitted with a promise, the modal will wait for the promise to be fulfilled before closing the modal.</li>
+    <li>The modal is notified during the form submission period, giving you a chance to style your modal accordingly with a 'loading...' message
+    or hide buttons to avoid concurrent calls.</li>
+</ul>
+</p>
+
+
+<h2>Demo</h2>
+
+{{#em-modal-form configName="bs" id="modalf" on-submit="addTag" in-async=async on-cancel="cancelled"}}
+    {{#em-modal-title}}
+        {{#em-modal-toggler class="close"}}<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>{{/em-modal-toggler}}
+        <h4 class="modal-title">Add Tag</h4>
+    {{/em-modal-title}}
+    {{#em-modal-body}}
+        {{#if async}}
+            Submitting, please wait...
+        {{else}}
+            <label for="title">Title:</label>
+            {{input id="title" value=newTag.title}}
+        {{/if}}
+    {{/em-modal-body}}
+    {{#em-modal-footer}}
+        <button type="submit" class="btn btn-primary" {{bind-attr disabled=async}}>Submit</button>
+    {{/em-modal-footer}}
+{{/em-modal-form}}
+
+{{#em-modal-toggler modal-id="modalf" class="btn btn-primary"}}Add Tag{{/em-modal-toggler}}
+
+<p>{{{message}}}</p>
+<h3>Tags</h3>
+<p>
+<ul>
+{{#each model}}
+    <li>{{title}}</li>
+{{/each}}
+</ul>
+</p>
+
+
+<h2>Markup</h2>
+
+<div class="well line-example"><pre><code class="handlebars">\{{#em-modal-form configName="bs" id="modalf" on-submit="addTag" in-async=async}}
+    \{{#em-modal-title}}
+        \{{#em-modal-toggler class="close"}}&lt;span aria-hidden="true"&gt;&times;&lt;/span&gt;&lt;span class="sr-only">Close&lt;/span&gt;\{{/em-modal-toggler}}
+        &lt;h4 class="modal-title"&gt;Add Tag&lt;/h4&gt;
+    \{{/em-modal-title}}
+    \{{#em-modal-body}}
+        \{{#if async}}
+            Submitting, please wait...
+        \{{else}}
+            &lt;label for="title"&gt;Title:&lt;/label&gt;
+            \{{input id="title" value=newTag.title}}
+        \{{/if}}
+    \{{/em-modal-body}}
+    \{{#em-modal-footer}}
+        &lt;button type="submit" class="btn btn-primary" \{{bind-attr disabled=async}}>Submit&lt;/button&gt;
+    \{{/em-modal-footer}}
+\{{/em-modal-form}}
+
+\{{#em-modal-toggler modal-id="modalf" class="btn btn-primary"}}Add Tag\{{/em-modal-toggler}}
+
+
+
+\{{#each model}}
+    &lt;li&gt;{{title}}&lt;/li&gt;
+\{{/each}}
+</code></pre></div>
+
+
+<h2>Controller</h2>
+
+<div class="well line-example"><pre><code class="coffeescript">Ember.ArrayController.extend
+    model: [
+        {title: 'tag1'}
+        {title: 'tag2'}
+    ]
+    #true if the form is currently being submitted
+    submitting: false
+
+    #The new tag to be added
+    newTag: undefined
+
+    initNewTag: (->
+        @set 'newTag', {}
+    ).on('init')
+
+    actions:
+        #Save the tag on the server
+        addTag: (m, e) ->
+            e.promise = @fakePromise(@get('tag')).then((t) =>
+                @model.addObject @get('newTag')
+                @initNewTag()
+            )
+
+    fakePromise: (objToReturn) ->
+        new Promise((res, rej) ->
+            Ember.run.later(->
+                res(objToReturn)
+            , 1500)
+        )
+</code></pre></div>

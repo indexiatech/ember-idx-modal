@@ -1,0 +1,51 @@
+<h1>Simple Modal</h1>
+
+<p>
+A streamlined, but flexible, dialog prompts, with a title, body and footer, the simplest form of a modal is consisted of:
+<ol>
+<li>The modal content itself, including its title and buttons, defined by the <i>\{{em-modal}}</i> tag
+<li>A modal toggler, defined by the <i>\{{em-modal-toggler}}</i> tag which is responsible for opening/closing the modal and can be rendered as any tag (such as button or a div).
+<li>An <i>optional</i> <i>\{{em-modal-toggler}}</i> within the modal to close the modal</li>
+</ol>
+</p>
+
+<h3>Demo</h3>
+
+{{#em-modal configName="bs" id="modal1"}}
+    {{#em-modal-title}}
+        {{#em-modal-toggler class="close"}}<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>{{/em-modal-toggler}}
+        <h4 class="modal-title">I'm a modal title</h4>
+    {{/em-modal-title}}
+    {{#em-modal-body}}
+        One fine body…
+    {{/em-modal-body}}
+    {{#em-modal-footer}}
+        {{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
+    {{/em-modal-footer}}
+{{/em-modal}}
+
+{{#em-modal-toggler modal-id="modal1" class="btn btn-primary"}}Click me!{{/em-modal-toggler}}
+
+<h3>Markup</h3>
+
+<div class="well line-example">
+    <pre><code class="handlebars">    &lt;!--id is important, so we can reference it on the toggler component--&gt;
+    \{{#em-modal configName="bs" id="modal1"}}
+    \{{#em-modal-title}}
+        &lt;!--optional toggler to close the opened modal--&gt;
+        \{{#em-modal-toggler class="close"}}<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>\{{/em-modal-toggler}}
+        &lt;h4 class="modal-title"&gt;I'm a modal title&lt;/h4&gt;
+    \{{/em-modal-title}}
+    &lt;!--the content of the modal...--&gt;
+    \{{#em-modal-body}}
+        One fine body…
+    \{{/em-modal-body}}
+    &lt;!--optional footer section of the modal, usually contains buttons--&gt;
+    \{{#em-modal-footer}}
+        \{{#em-modal-toggler class="btn btn-default"}}Close\{{/em-modal-toggler}}
+    \{{/em-modal-footer}}
+\{{/em-modal}}
+
+&lt;!--the toggler to open the modal when clicked, <i>modal-id</i> property must reference the modal's id--&gt;
+\{{#em-modal-toggler modal-id="modal1" class="btn btn-primary"}}Click me!\{{/em-modal-toggler}}</code></pre>
+</div>

@@ -1,0 +1,55 @@
+<h1>Reuse a Modal</h1>
+
+A modal can be re-used more than once for different data,
+
+A common need for this is when having a table of models and an action (such as <i>edit</i>) that needs a form for the specific selected model.
+
+<h2>Demo</h2>
+
+{{#em-list}}
+    {{#each}}
+        {{#em-list-item}}
+            {{title}}
+            {{#em-modal-toggler modal-id="edit-modal" on-toggle="setTagInModal" tag=this}}rename{{/em-modal-toggler}}
+        {{/em-list-item}}
+    {{/each}}
+{{/em-list}}
+
+{{#em-modal configName="bs" id="edit-modal"}}
+    {{#em-modal-title}}<h4>Rename Tag</h4>{{/em-modal-title}}
+    {{#em-modal-body}}
+    {{input value=tag.title}}
+    {{#em-modal-toggler}}Done{{/em-modal-toggler}}
+    {{/em-modal-body}}
+{{/em-modal}}
+
+<h2> Markup </h2>
+<div class="well line-example"><pre><code class="handlebars">\{{#em-list}}
+    \{{#each}}
+        \{{#em-list-item}}
+            \{{title}}
+            &lt;!--<i>on-toggle</i>will trigger the <i>setTagInModal</i> action on the controller when the toggler is clicked--&gt;
+            \{{#em-modal-toggler modal-id="edit-modal" on-toggle="setTagInModal" tag=this}}rename\{{/em-modal-toggler}}
+        \{{/em-list-item}}
+    \{{/each}}
+\{{/em-list}}
+
+\{{#em-modal configName="bs" id="edit-modal"}}
+    \{{#em-modal-title}}&lt;h4&gt;Rename Tag&lt;/h4&gt;\{{/em-modal-title}}
+    \{{#em-modal-body}}
+    \{{input value=tag.title}}
+    \{{#em-modal-toggler}}Done\{{/em-modal-toggler}}
+    \{{/em-modal-body}}
+\{{/em-modal}}
+</code></pre></div>
+
+<h2> Controller </h2>
+<div class="well line-example"><pre><code class="coffee">Ember.ArrayController.extend
+    #The tag being edited
+    tag: undefined
+
+    actions:
+        setTagInModal: (toggler) ->
+            #Get the tag from the toggler and set it as a member of this controller
+            @set 'tag', toggler.get('tag')
+</code></pre></div>

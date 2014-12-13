@@ -1,0 +1,29 @@
+<h1>Confirm with a Reason</h1>
+
+<p>
+This is an extension to the {{#link-to 'confirm'}}confirmation modal{{/link-to}} but requires the user to input a reason,
+
+It is possible to supply a predefined reasons list, force the user to support a reason, and other tweaks.
+</p>
+
+<h2>Demo</h2>
+
+{{#em-modal-confirm-with-reason confirm-id="m" reasons=reasons configName="bs" close-if=close}}
+<p>Or yield some content...</p>
+{{/em-modal-confirm-with-reason}}
+{{#em-modal-toggler modal-id="m"}}Delete{{/em-modal-toggler}}
+
+<h2>Markup</h2>
+<div class="well line-example"><pre><code class="handlebars">\{{em-modal-confirm confirm-id="m" configName="bs" close-if=close}}
+&lt;!--<i>modal-id</i> is set to the value of the modal's <i>confirm-id</i> property--&gt;
+\{{#em-modal-toggler modal-id="m"}}Delete\{{/em-modal-toggler}}
+</code></pre></div>
+
+<div class="well line-example"><pre><code class="coffeescript">Ember.Controller.extend
+    close: false
+    reasons: Em.A['foo', 'bar']
+    actions:
+        confirm: ->
+            alert "Confirmed!"
+            @set 'close', true
+</code></pre></div>

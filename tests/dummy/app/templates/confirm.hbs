@@ -1,0 +1,28 @@
+<h1>Confirm</h1>
+<p>
+A confirmation modal with 'Yes' and 'No' buttons
+</p>
+<p>
+When 'No' is pressed the modal just get closed, while if the 'Yes' button is pressed an action named <i>confirm</i> is invoked on the controller, giving the controller the opportunity to decide whether to close the modal or not.
+</p>
+
+<h2>Demo</h2>
+
+{{#em-modal-confirm confirm-id="m" configName="bs" close-if=close on-hide="foo"}}
+<p>Or yield some content...</p>
+{{/em-modal-confirm}}
+{{#em-modal-toggler modal-id="m"}}Delete{{/em-modal-toggler}}
+
+<h2>Markup</h2>
+<div class="well line-example"><pre><code class="handlebars">\{{em-modal-confirm confirm-id="m" configName="bs" close-if=close}}
+&lt;!--<i>modal-id</i> is set to the value of the modal's <i>confirm-id</i> property--&gt;
+\{{#em-modal-toggler modal-id="m"}}Delete\{{/em-modal-toggler}}
+</code></pre></div>
+
+<div class="well line-example"><pre><code class="coffeescript">Ember.Controller.extend
+    close: false
+    actions:
+        confirm: ->
+            alert "Confirmed!"
+            @set 'close', true
+</code></pre></div>
