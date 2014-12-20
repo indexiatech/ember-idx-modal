@@ -16,9 +16,10 @@ import StyleBindingsMixin from 'ember-idx-utils/mixin/style-bindings';
  */
 
 export default Em.Component.extend(WithConfigMixin, StyleBindingsMixin, {
-  attributeBindings: ['disabled'],
+  attributeBindings: ['disabled', 'type'],
   tagName: 'button',
   classNameBindings: ['styleClasses'],
+  type: 'button',
 
   /**
    * The CSS classes that will be attached to the DOM element of the modal
