@@ -1,6 +1,6 @@
 {
   "name": "ember-idx-modal",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -32,7 +32,9 @@
     "ember-idx-forms": "^0.5.0-SNAPSHOT",
     "ember-validations": "^2.0.0-alpha.1",
     "express": "^4.8.5",
-    "glob": "^4.0.5"
+    "glob": "^4.0.5",
+    "broccoli-merge-trees": "^0.2.1",
+    "broccoli-static-compiler": "^0.2.1"
   },
   "description": "Ambitious Modal Component for Ember.js",
   "authors": [
@@ -45,8 +47,6 @@
     "configPath": "tests/dummy/config"
   },
   "dependencies": {
-    "ember-idx-utils": "^0.2.0",
-    "broccoli-merge-trees": "^0.2.1",
-    "broccoli-static-compiler": "^0.2.1"
+    "ember-idx-utils": "^0.2.0"
   }
 }

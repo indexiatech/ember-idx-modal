@@ -1,6 +1,7 @@
 /* jshint node: true */
 /* global require, module */
-
+var mergeTrees = require('broccoli-merge-trees');
+var pickFiles = require('broccoli-static-compiler');
 var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 var app = new EmberAddon();
@@ -17,5 +18,15 @@ var app = new EmberAddon();
 // modules that you would like to import into your application
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
+app.import('bower_components/bootstrap/dist/css/bootstrap.css');
+app.import('bower_components/fontawesome/css/font-awesome.min.css');
+app.import('bower_components/highlightjs/highlight.pack.js');
+app.import('bower_components/highlightjs/styles/tomorrow.css');
+
+var extraAssets = pickFiles('bower_components/fontawesome', {
+    srcDir: '/',
+    files: ['**/*.woff', '**/*.eot', '**/*.svg', '**/*.ttf'],
+    destDir: '/'
+});
 
 module.exports = app.toTree();
