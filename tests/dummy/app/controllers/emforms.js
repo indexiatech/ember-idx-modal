@@ -20,7 +20,7 @@ export default Ember.ArrayController.extend({
     return this.set('newUser', this.get('store').createRecord('user'));
   },
   fakePromise: function(objToReturn) {
-    return new Promise(function(res, rej) {
+    return new Ember.RSVP.Promise(function(res, rej) {
       return Ember.run.later(function() {
         return res(objToReturn);
       }, 1500);
