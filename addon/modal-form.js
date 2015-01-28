@@ -53,6 +53,7 @@ export default Modal.extend({
     if (!this.get('submitted')) {
       this.sendAction('on-cancel', this);
     }
+    this.set('submitted', false);
     return this._super.apply(this, arguments);
   }
 });
