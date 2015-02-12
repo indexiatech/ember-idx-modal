@@ -28,7 +28,7 @@ export default Ember.ArrayController.extend({
     }
   },
   fakePromise: function(objToReturn) {
-    return new Promise((function(_this) {
+    return new Ember.RSVP.Promise((function(_this) {
       return function(res, rej) {
         return Ember.run.later(function() {
           _this.set('message', '<b>Form submitted!</b>');
