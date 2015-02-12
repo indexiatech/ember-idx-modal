@@ -5,13 +5,13 @@ export default {
   name: 'ember-idx-modal',
   initialize: function() {
     if (!Em.Config) {
-        Em.Config = Config = Config.create()
+        Em.Config = Config.create()
     }
 
-    var defaultConfig = Config.getConfig('bs');
+    var defaultConfig = Em.Config.getConfig('bs');
     if (!defaultConfig) {
-        Config.addConfig('bs');
-        defaultConfig = Config.getConfig('bs');
+        Em.Config.addConfig('bs');
+        defaultConfig = Em.Config.getConfig('bs');
     }
 
     defaultConfig['modal'] = {
