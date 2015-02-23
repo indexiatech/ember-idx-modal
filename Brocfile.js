@@ -29,4 +29,4 @@ var extraAssets = pickFiles('bower_components/fontawesome', {
     destDir: '/'
 });
 
-module.exports = app.toTree();
+module.exports = mergeTrees([app.toTree(), extraAssets])
