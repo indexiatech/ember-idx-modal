@@ -232,7 +232,7 @@ export default Em.Component.extend(WithConfigMixin, StyleBindingsMixin, {
     }
     this.open();
     return this.set('open-if', false);
-  }).observes('open-if'),
+  }).observes('open-if').on('init'),
 
   /**
    * Consumer can bind this property for a more fine grained control over when the modal is closed,
