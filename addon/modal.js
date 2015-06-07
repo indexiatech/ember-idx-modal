@@ -201,14 +201,23 @@ export default Em.Component.extend(WithConfigMixin, StyleBindingsMixin, {
   }).on('click'),
 
   /**
+   * Parameter set to true to ignore ESC keyboard event
+   * @property ignore-esc
+   * @private
+   */
+  'ignore-esc': false,
+
+  /**
    * Handle keyboard events
    * @method handleKeyboard
    * @private
    */
   handleKeyboard: (function(e) {
-    switch (e.keyCode) {
-      case 27:
-        return this.close();
+    if (!this.get('ignore-esc')) {
+      switch (e.keyCode) {
+        case 27:
+          return this.close();
+      }
     }
   }).on('keyDown'),
 
