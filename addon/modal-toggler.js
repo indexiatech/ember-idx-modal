@@ -58,7 +58,7 @@ export default Em.Component.extend(WithConfigMixin, StyleBindingsMixin, {
       return this.set('modal', modalAsAncestor);
     } else {
       return Em.run.schedule('afterRender', this, function() {
-        return this.set('modal', Em.View.views[this.get('modal-id')]);
+        return this.set('modal', this._viewRegistry[this.get('modal-id')]);
       });
     }
   }).on('willInsertElement')
