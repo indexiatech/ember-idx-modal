@@ -52,14 +52,14 @@ export default Em.Component.extend(WithConfigMixin, StyleBindingsMixin, {
    * @method modalAsProperty
    */
   modalAsProperty: (function() {
-    var modalAsAncestor;
-    modalAsAncestor = this.nearestOfType(Modal);
-    if (modalAsAncestor) {
-      return this.set('modal', modalAsAncestor);
-    } else {
+    var modalId = this.get('modal-id'); 
+
+    if (modalId) {
       return Em.run.schedule('afterRender', this, function() {
-        return this.set('modal', Em.View.views[this.get('modal-id')]);
+        return this.set('modal', Em.View.views[modalId]);
       });
+    } else {
+      return this.set('modal', this.nearestOfType(Modal));
     }
   }).on('willInsertElement')
 });
