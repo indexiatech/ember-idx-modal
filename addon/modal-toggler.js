@@ -56,7 +56,7 @@ export default Em.Component.extend(WithConfigMixin, StyleBindingsMixin, {
 
     if (modalId) {
       return Em.run.schedule('afterRender', this, function() {
-        return this.set('modal', Em.View.views[modalId]);
+        return this.set('modal', this._viewRegistry[modalId]);
       });
     } else {
       return this.set('modal', this.nearestOfType(Modal));
